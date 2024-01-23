@@ -1,0 +1,36 @@
+<%-include('../includes/header') -%>
+
+<div class="max-w-md mx-auto mt-10 bg-white p-6 rounded-md shadow-md">
+  <% if (formDataList.length > 0) { %>
+    <ul>
+      <% formDataList.forEach((formData, index) => { %>
+        <li class="mb-4 flex items-center">
+          <div class="mr-4">
+            <% if (formData.imagePath) { %>
+              <img src="<%= formData.imagePath %>" alt="Image" class="rounded-md shadow-md h-20 w-20">
+            <% } else { %>
+              <p class="text-lg font-semibold mt-2">Aucune image téléchargée</p>
+            <% } %>
+          </div>
+          <div>
+            <p class="text-lg font-semibold">Inscription <%= index + 1 %></p>
+            <p>Nom: <%= formData.firstname || 'Non défini' %></p>
+            <p>Prenom: <%= formData.lastname || 'Non défini' %></p>
+            <p>Email: <%= formData.email || 'Non défini' %></p>
+            <div class="mt-2">
+              <!-- Bouton Modifier -->
+              <a href="/edit/<%= index %>" class="bg-green-500 text-white px-4 py-2 mr-2 rounded-md hover:bg-green-600">Modifier</a>
+            <!-- Bouton Supprimer -->
+              <a href="/delete/<%= index %>" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Supprimer</a>
+            </div>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p class="text-lg font-semibold">Aucune inscription pour le moment.</p>
+  <% } %>
+</div>
+
+
+
