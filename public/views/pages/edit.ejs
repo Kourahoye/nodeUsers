@@ -1,7 +1,7 @@
 <%-include('../includes/header') -%>
 <!-- edit.ejs -->
 <div class="max-w-md mx-auto mt-10 bg-white p-6 rounded-md shadow-md">
-    <form method="post" action="/update/<%= index %>" enctype="multipart/form-data">
+    <form method="post" action="/update/<%= index %>" enctype="application/x-www-form-urlencoded">
       <!-- Champ de formulaire pour le nom -->
       <div class="mb-4">
         <label for="editFirstname" class="text-lg font-semibold">Nom</label>
@@ -24,5 +24,4 @@
       <input type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" value="Modifier">
     </form>
   </div>
-  
   

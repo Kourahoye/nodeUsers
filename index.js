@@ -5,11 +5,13 @@ const path = require('path');
 const app = express()
 const port = 3000
 
-
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname,'public' ,'views','pages'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static("public"))
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/edit', express.static(path.join(__dirname, 'public'), { type: 'text/css' }));
 
 // Importation des modules nécessaires
 
@@ -33,8 +35,15 @@ app.use(session({
 }));
 
 // Middleware pour gérer les routes
-app.get('/', (req, res) => {
+app.get('/incription', (req, res) => {
   res.render("inscription");
+});
+
+app.get('/', (req, res) => {
+  res.render("login");
+});
+app.post('/', (req, res) => {
+  res.redirect('incription')
 });
 
 app.post('/submit', upload.single('avatar'), (req, res) => {
@@ -83,9 +92,8 @@ app.get('/delete/:index', (req, res) => {
 
 app.get('/edit/:index', (req, res) => {
   const { index } = req.params;
-  console.log(req.body)
   // Vérifiez que l'index est valide et existe dans la liste
-  if (req.session.formDataList && req.session.formDataList[index]) {
+  if (req.session.formDataList[index]) {
     // Récupérez les données de l'inscription à modifier
     const formDataToEdit = req.session.formDataList[index];
 
@@ -98,9 +106,9 @@ app.get('/edit/:index', (req, res) => {
 });
 app.post('/update/:index', (req, res) => {
   const { index } = req.params;
-
+  console.log(req.body)
   // Vérifiez que l'index est valide et existe dans la liste
-  if (req.session.formDataList && req.session.formDataList[index]) {
+  if (req.session.formDataList[index]) {
     // Mettez à jour les données de l'inscription
     req.session.formDataList[index].firstname = req.body.editFirstname;
     req.session.formDataList[index].lastname = req.body.editLastname;

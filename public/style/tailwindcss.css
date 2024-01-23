@@ -525,9 +525,6 @@ video {
     max-width: 1536px;
   }
 }
-.invisible {
-  visibility: hidden;
-}
 .sticky {
   position: sticky;
 }
